@@ -11,20 +11,16 @@ Features :
 - Transaction management (deposits, withdrawals, transfers)
 - Account balance inquiries
 - Financial reporting and insights
-  
-✅ Authentication & Authorization:
+-Track user activity (who did what and when) 
+Authentication & Authorization:
 User login/logout
 Role-based access (e.g., admin vs. customer)
 
-Audit Logs:
-Track user activity (who did what and when)
+-Loan Management:
+Apply for loans,View loan history & repayment schedules.
 
-Loan Management:
-Apply for loans.
-View loan history & repayment schedules.
-
-Notifications:
-Email or in_app alerts for transactions.
+-Notifications:
+Email or in-app alerts for transactions.
 
 Technology Stack :
 - Python
