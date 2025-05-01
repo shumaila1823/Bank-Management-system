@@ -38,6 +38,11 @@ h      text-align: center;
     .accounts {
       margin-top: 30px;
     }
+    /* ✨  Notification styles */
+    #notification {
+      margin-top: 10px;
+      color: blue;
+      font-style: italic;
   </style>
 </head>
 <body>
@@ -50,8 +55,13 @@ h      text-align: center;
     <button onclick="deposit()">Deposit</button>
     <button onclick="withdraw()">Withdraw</button>
     <button onclick="checkBalance()">Check Balance</button>
+    <!-- ✨  Loan Management Buttons -->
+    <button onclick="applyLoan()">Apply Loan</button>
+    <button onclick="viewLoan()">View Loan</button>
   </div>
   <p id="message"></p>
+  <!-- ✨ Notification display -->
+  <p id="notification"></p>
 
   <div class="accounts">
     <h3>All Accounts</h3>
@@ -60,6 +70,7 @@ h      text-align: center;
 
   <script>
     const accounts = {};
+    const loans = {}; // ✨ Object to track loans
 
     function createAccount() {
       const name = document.getElementById("name").value;
@@ -68,7 +79,9 @@ h      text-align: center;
         showMessage("Account already exists.");
       } else {
         accounts[name] = 0;
+        loans[name] = 0; // ✨  Initialize loan amount
         showMessage("Account created successfully.");
+        showNotification(`Welcome, ${name}!`);
         updateAccounts();
       }
     }
@@ -77,8 +90,10 @@ h      text-align: center;
       const name = document.getElementById("name").value;
       const amount = parseFloat(document.getElementById("amount").value);
       if (!accounts[name]) return showMessage("Account not found.");
+      if (isNaN(amount) || amount <= 0) return showMessage("Enter a valid deposit amount.");
       accounts[name] += amount;
       showMessage(`Deposited $${amount.toFixed(2)} to ${name}'s account.`);
+      showNotification("Deposit successful.");
       updateAccounts();
     }
 
@@ -86,11 +101,13 @@ h      text-align: center;
       const name = document.getElementById("name").value;
       const amount = parseFloat(document.getElementById("amount").value);
       if (!accounts[name]) return showMessage("Account not found.");
+      if (isNaN(amount) || amount <= 0) return showMessage("Enter a valid withdrawal amount.");
       if (accounts[name] < amount) {
         showMessage("Insufficient balance.");
       } else {
         accounts[name] -= amount;
         showMessage(`Withdrew $${amount.toFixed(2)} from ${name}'s account.`);
+        showNotification("Withdrawal successful.");
         updateAccounts();
       }
     }
@@ -99,10 +116,38 @@ h      text-align: center;
       const name = document.getElementById("name").value;
       if (!accounts[name]) return showMessage("Account not found.");
       showMessage(`${name}'s Balance: $${accounts[name].toFixed(2)}`);
+      showNotification("Balance checked.");
+    }
+   // ✨  Loan application feature
+    function applyLoan() {
+      const name = document.getElementById("name").value.trim();
+      const amount = parseFloat(document.getElementById("amount").value);
+      if (!accounts[name]) return showMessage("Account not found.");
+      if (isNaN(amount) || amount <= 0) return showMessage("Enter a valid loan amount.");
+      loans[name] += amount;
+      accounts[name] += amount;
+      showMessage(`Loan of $${amount.toFixed(2)} granted to ${name}.`);
+      showNotification("Loan processed successfully.");
+      updateAccounts();
+    }
+
+    // ✨ View loan details
+    function viewLoan() {
+      const name = document.getElementById("name").value.trim();
+      if (!accounts[name]) return showMessage("Account not found.");
+      showMessage(`${name}'s Total Loan: $${loans[name].toFixed(2)}`);
+      showNotification("Loan info retrieved.");
     }
 
     function showMessage(msg) {
       document.getElementById("message").innerText = msg;
+    }
+    // ✨ HIGHLIGHTED: Notification function
+    function showNotification(note) {
+      document.getElementById("notification").innerText = note;
+      setTimeout(() => {
+        document.getElementById("notification").innerText = "";
+      }, 3000);
     }
 
     function updateAccounts() {
@@ -110,7 +155,7 @@ h      text-align: center;
       list.innerHTML = "";
       for (let name in accounts) {
         const li = document.createElement("li");
-        li.textContent = `${name}: $${accounts[name].toFixed(2)}`;
+        li.textContent = `${name}: $${accounts[name].toFixed(2)} | Loan: $${loans[name].toFixed(2)}`;
         list.appendChild(li);
       }
     }
