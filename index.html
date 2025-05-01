@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
+h      text-align: center;
       padding: 40px;
       background-color: #f2f2f2;
     }
@@ -112,6 +112,15 @@
         const li = document.createElement("li");
         li.textContent = `${name}: $${accounts[name].toFixed(2)}`;
         list.appendChild(li);
+      }
+    }
+    
+    function show_account_holder() {
+      const names = Object.keys(accounts);
+      if (names.length === 0) {
+        showMessage("No account holders found.");
+      } else {
+        showMessage("Account Holders: " + names.join(", "));
       }
     }
   </script>
