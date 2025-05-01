@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bank Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: #f2f2f2;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .form input {
+      margin: 5px;
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+    }
+
+    .form button {
+      margin: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .accounts {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bank Management System</h1>
+  <div class="form">
+    <input type="text" id="name" placeholder="Customer Name" />
+    <input type="number" id="amount" placeholder="Amount" />
+    <br />
+    <button onclick="createAccount()">Create Account</button>
+    <button onclick="deposit()">Deposit</button>
+    <button onclick="withdraw()">Withdraw</button>
+    <button onclick="checkBalance()">Check Balance</button>
+  </div>
+  <p id="message"></p>
+
+  <div class="accounts">
+    <h3>All Accounts</h3>
+    <ul id="accountList"></ul>
+  </div>
+
+  <script>
+    const accounts = {};
+
+    function createAccount() {
+      const name = document.getElementById("name").value;
+      if (!name) return showMessage("Please enter a name.");
+      if (accounts[name]) {
+        showMessage("Account already exists.");
+      } else {
+        accounts[name] = 0;
+        showMessage("Account created successfully.");
+        updateAccounts();
+      }
+    }
+
+    function deposit() {
+      const name = document.getElementById("name").value;
+      const amount = parseFloat(document.getElementById("amount").value);
+      if (!accounts[name]) return showMessage("Account not found.");
+      accounts[name] += amount;
+      showMessage(`Deposited $${amount.toFixed(2)} to ${name}'s account.`);
+      updateAccounts();
+    }
+
+    function withdraw() {
+      const name = document.getElementById("name").value;
+      const amount = parseFloat(document.getElementById("amount").value);
+      if (!accounts[name]) return showMessage("Account not found.");
+      if (accounts[name] < amount) {
+        showMessage("Insufficient balance.");
+      } else {
+        accounts[name] -= amount;
+        showMessage(`Withdrew $${amount.toFixed(2)} from ${name}'s account.`);
+        updateAccounts();
+      }
+    }
+
+    function checkBalance() {
+      const name = document.getElementById("name").value;
+      if (!accounts[name]) return showMessage("Account not found.");
+      showMessage(`${name}'s Balance: $${accounts[name].toFixed(2)}`);
+    }
+
+    function showMessage(msg) {
+      document.getElementById("message").innerText = msg;
+    }
+
+    function updateAccounts() {
+      const list = document.getElementById("accountList");
+      list.innerHTML = "";
+      for (let name in accounts) {
+        const li = document.createElement("li");
+        li.textContent = `${name}: $${accounts[name].toFixed(2)}`;
+        list.appendChild(li);
+      }
+    }
+  </script>
+</body>
+</html>
