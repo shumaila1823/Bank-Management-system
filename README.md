@@ -30,7 +30,7 @@ Technology Stack :
 - Python
 - SQL (Database)
 - HTML/CSS/JavaScript (Web Interface)
-
+.
 
 
 
