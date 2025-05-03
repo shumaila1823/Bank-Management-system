@@ -1,1 +1,36 @@
+Deposit-and-Withdrawl
+class BankAccount:
+    def __init__(self, account_holder, balance=0.0):
+        self.account_holder = account_holder
+        self.balance = balance
 
+    def deposit(self, amount):
+        if amount <= 0:
+            print("❌ Deposit amount must be positive.")
+            return
+        self.balance += amount
+        print(f"✅ Deposited ${amount:.2f}. New balance: ${self.balance:.2f}")
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("❌ Withdrawal amount must be positive.")
+            return
+        if amount > self.balance:
+            print("❌ Insufficient funds.")
+            return
+        self.balance -= amount
+        print(f"✅ Withdrawn ${amount:.2f}. New balance: ${self.balance:.2f}")
+
+    def display_balance(self):
+        print(f"📄 Account Holder: {self.account_holder}, Balance: ${self.balance:.2f}")
+
+
+# Example usage:
+account = BankAccount("Alice", 1000.0)
+
+account.display_balance()
+account.deposit(500)
+account.withdraw(300)
+account.withdraw(1500)  # Should show an error
+account.display_balance()
+ main
