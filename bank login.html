@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bank Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Bank System Login</h1>
+
+  <div class="login-methods">
+    <button onclick="showLogin('password')">🔑 Password</button>
+    <button onclick="showLogin('face')">📸 Face Recognition</button>
+    <button onclick="simulate('fingerprint')">👐 Fingerprint</button>
+    <button onclick="simulate('eye')">👁️ Eye Detection</button>
+    <button onclick="simulate('pattern')">🔲 Pattern Lock</button>
+  </div>
+
+  <div id="login-box">
+    <!-- Dynamic login box here -->
+  </div>
+
+  <p id="message"></p>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+  <script defer>
+    async function showLogin(method) {
+      const box = document.getElementById('login-box');
+      document.getElementById('message').innerText = '';
+      if (method === 'password') {
+        box.innerHTML = `
+          <h3>Login with Password</h3>
+          <input type="text" id="username" placeholder="Username"/><br/>
+          <input type="password" id="password" placeholder="Password"/><br/>
+          <button onclick="loginPassword()">Login</button>
+        `;
+      } else if (method === 'face') {
+        box.innerHTML = `
+          <h3>Login with Face</h3>
+          <video id="video" width="320" height="240" autoplay muted></video><br/>
+          <button onclick="captureFace()">Verify Face</button>
+        `;
+        await loadModels();
+        startVideo();
+      }
+    }
+
+    function simulate(method) {
+      document.getElementById('login-box').innerHTML = `<p><em>Simulated ${method} login not supported in browsers. Try native app.</em></p>`;
+      document.getElementById('message').innerText = 'Simulated login complete.';
+    }
+
+    function loginPassword() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      if (user === 'user' && pass === 'pass123') {
+        document.getElementById('message').innerText = '✅ Login successful';
+      } else {
+        document.getElementById('message').innerText = '❌ Invalid credentials';
+      }
+    }
+
+    async function loadModels() {
+      await faceapi.nets.tinyFaceDetector.loadFromUri('/face-api');
+      await faceapi.nets.faceRecognitionNet.loadFromUri('/face-api');
+      await faceapi.nets.faceLandmark68Net.loadFromUri('/face-api');
+    }
+
+    function startVideo() {
+      const video = document.getElementById('video');
+      navigator.mediaDevices.getUserMedia({ video: {} })
+        .then(stream => video.srcObject = stream)
+        .catch(err => console.error("Camera error:", err));
+    }
+
+    async function captureFace() {
+      const video = document.getElementById('video');
+      const detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions());
+      if (detection) {
+        document.getElementById('message').innerText = '✅ Face recognized. Login successful.';
+      } else {
+        document.getElementById('message').innerText = '❌ Face not recognized.';
+      }
+    }
+  </script>
+</body>
+</html>
