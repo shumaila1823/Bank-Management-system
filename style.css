@@ -1,13 +1,85 @@
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  background: url('https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=1600&q=80') 
-              no-repeat center center fixed;
+  font-family: 'Segoe UI', sans-serif;
+  background: url('https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=1600&q=80')
+    no-repeat center center fixed;
   background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 40px;
+  color: #000;
 }
 
-  
-  
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);
+}
 
-  
+.form {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.form input {
+  padding: 10px;
+  width: 250px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.form button {
+  padding: 10px 20px;
+  font-size: 15px;
+  margin: 4px;
+  border: none;
+  background-color: #03a9f4;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.form button:hover {
+  background-color: #0288d1;
+}
+
+#message, #notification {
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.accounts {
+  margin-top: 30px;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 90%;
+}
+
+.accounts h3 {
+  margin-bottom: 10px;
+}
+
+.accounts ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.accounts li::before {
+  content: "💳 ";
+}
