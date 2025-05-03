@@ -2,15 +2,16 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: url('https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=1600&q=80')
-    no-repeat center center fixed;
+  background: url('https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=1600&q=80') 
+              no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Align form to the left */
   justify-content: flex-start;
   padding-top: 40px;
+  padding-left: 50px;
   color: #000;
 }
 
@@ -20,6 +21,7 @@ h1 {
   text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.7);
 }
 
+/* Form box aligned to left */
 .form {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 20px;
@@ -29,14 +31,19 @@ h1 {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+
+  /* Shift to the left side */
+  align-self: flex-start;
+  margin-bottom: 20px;
 }
 
 .form input {
   padding: 10px;
   width: 250px;
   font-size: 16px;
-  border: 1px solid #ccc;
   border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
 }
 
 .form button {
@@ -60,6 +67,7 @@ h1 {
   font-weight: bold;
 }
 
+/* Account list styling */
 .accounts {
   margin-top: 30px;
   background-color: rgba(255, 255, 255, 0.85);
@@ -68,6 +76,7 @@ h1 {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   max-width: 600px;
   width: 90%;
+  margin-left: 50px; /* match form alignment */
 }
 
 .accounts h3 {
