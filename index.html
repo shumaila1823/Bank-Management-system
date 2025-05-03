@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bank Management System</title>
   <style>
+patch-2
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px;
-      background-color: #f2f2f2;
-    }
-
-    h1 {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 40px;
+  background-color: #f2f2f2;
+}
+   h1 {
       color: #333;
     }
 
@@ -38,6 +38,12 @@
     .accounts {
       margin-top: 30px;
     }
+
+    #notification {
+      margin-top: 10px;
+      color: blue;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -50,8 +56,12 @@
     <button onclick="deposit()">Deposit</button>
     <button onclick="withdraw()">Withdraw</button>
     <button onclick="checkBalance()">Check Balance</button>
+    <button onclick="applyLoan()">Apply Loan</button>
+    <button onclick="viewLoan()">View Loan</button>
+    <button onclick="showAccountHolders()">Show All Account Holders</button>
   </div>
   <p id="message"></p>
+  <p id="notification"></p>
 
   <div class="accounts">
     <h3>All Accounts</h3>
@@ -60,49 +70,86 @@
 
   <script>
     const accounts = {};
+    const loans = {};
 
     function createAccount() {
-      const name = document.getElementById("name").value;
+      const name = getName();
       if (!name) return showMessage("Please enter a name.");
       if (accounts[name]) {
         showMessage("Account already exists.");
       } else {
         accounts[name] = 0;
+        loans[name] = 0;
         showMessage("Account created successfully.");
+        showNotification(`Welcome, ${name}!`);
         updateAccounts();
       }
+      clearInputs();
     }
 
     function deposit() {
-      const name = document.getElementById("name").value;
-      const amount = parseFloat(document.getElementById("amount").value);
+      const name = getName();
+      const amount = getAmount();
       if (!accounts[name]) return showMessage("Account not found.");
+      if (!amount) return;
       accounts[name] += amount;
       showMessage(`Deposited $${amount.toFixed(2)} to ${name}'s account.`);
+      showNotification("Deposit successful.");
       updateAccounts();
+      clearInputs();
     }
 
     function withdraw() {
-      const name = document.getElementById("name").value;
-      const amount = parseFloat(document.getElementById("amount").value);
+      const name = getName();
+      const amount = getAmount();
       if (!accounts[name]) return showMessage("Account not found.");
+      if (!amount) return;
       if (accounts[name] < amount) {
         showMessage("Insufficient balance.");
       } else {
         accounts[name] -= amount;
         showMessage(`Withdrew $${amount.toFixed(2)} from ${name}'s account.`);
+        showNotification("Withdrawal successful.");
         updateAccounts();
       }
+      clearInputs();
     }
 
     function checkBalance() {
-      const name = document.getElementById("name").value;
+      const name = getName();
       if (!accounts[name]) return showMessage("Account not found.");
       showMessage(`${name}'s Balance: $${accounts[name].toFixed(2)}`);
+      showNotification("Balance checked.");
     }
 
-    function showMessage(msg) {
-      document.getElementById("message").innerText = msg;
+    function applyLoan() {
+      const name = getName();
+      const amount = getAmount();
+      if (!accounts[name]) return showMessage("Account not found.");
+      if (!amount) return;
+      loans[name] += amount;
+      accounts[name] += amount;
+      showMessage(`Loan of $${amount.toFixed(2)} granted to ${name}.`);
+      showNotification("Loan processed successfully.");
+      updateAccounts();
+      clearInputs();
+    }
+
+    function viewLoan() {
+      const name = getName();
+      if (!accounts[name]) return showMessage("Account not found.");
+      showMessage(`${name}'s Total Loan: $${loans[name].toFixed(2)}`);
+      showNotification("Loan info retrieved.");
+    }
+
+    function showAccountHolders() {
+      const names = Object.keys(accounts);
+      if (names.length === 0) {
+        showMessage("No account holders found.");
+      } else {
+        showMessage("Account Holders: " + names.join(", "));
+        showNotification("List displayed.");
+      }
     }
 
     function updateAccounts() {
@@ -110,9 +157,39 @@
       list.innerHTML = "";
       for (let name in accounts) {
         const li = document.createElement("li");
-        li.textContent = `${name}: $${accounts[name].toFixed(2)}`;
+        li.textContent = `${name}: $${accounts[name].toFixed(2)} | Loan: $${loans[name].toFixed(2)}`;
         list.appendChild(li);
       }
+    }
+
+    function showMessage(msg) {
+      document.getElementById("message").innerText = msg;
+    }
+
+    function showNotification(note) {
+      document.getElementById("notification").innerText = note;
+      setTimeout(() => {
+        document.getElementById("notification").innerText = "";
+      }, 3000);
+    }
+
+    function getName() {
+      return document.getElementById("name").value.trim();
+    }
+
+    function getAmount() {
+      const amount = parseFloat(document.getElementById("amount").value);
+      if (isNaN(amount) || amount <= 0) {
+        showMessage("Enter a valid amount.");
+        return null;
+      }
+      return amount;
+    }
+
+    function clearInputs() {
+      document.getElementById("name").value = "";
+      document.getElementById("amount").value = "";
+      document.getElementById("name").focus();
     }
   </script>
 </body>
