@@ -1,0 +1,294 @@
+class BankAccount:
+    def __init__(self, account_number, account_holder, balance=0.0):
+        self.account_number = account_number
+        self.account_holder = account_holder
+        self.balance = balance
+
+    def deposit(self, amount):
+        if amount <= 0:
+            print("❌ Deposit must be greater than zero.")
+            return
+        self.balance += amount
+        print(f"✅ ${amount:.2f} deposited successfully.")
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("❌ Withdrawal must be greater than zero.")
+            return
+        if amount > self.balance:
+            print("❌ Insufficient balance.")
+            return
+        self.balance -= amount
+        print(f"✅ ${amount:.2f} withdrawn successfully.")
+
+    def check_balance(self):
+        print(f"💰 Current Balance: ${self.balance:.2f}")
+
+    def display_info(self):
+        print("📄 Account Information:")
+        print(f"Account Number: {self.account_number}")
+        print(f"Account Holder: {self.account_holder}")
+        print(f"Balance: ${self.balance:.2f}")
+
+
+# Managing multiple accounts
+class BankSystem:
+    def __init__(self):
+        self.accounts = {}
+
+    def create_account(self):
+        account_number = input("Enter Account Number: ")
+        if account_number in self.accounts:
+            print("⚠️ Account already exists.")
+            return
+
+        name = input("Enter Account Holder Name: ")
+        initial_deposit = float(input("Enter Initial Deposit: "))
+        account = BankAccount(account_number, name, initial_deposit)
+        self.accounts[account_number] = account
+        print("✅ Account created successfully.")
+
+    def access_account(self):
+        account_number = input("Enter Account Number: ")
+        account = self.accounts.get(account_number)
+
+        if not account:
+            print("❌ Account not found.")
+            return
+
+        while True:
+            print("\n1. Deposit\n2. Withdraw\n3. Check Balance\n4. View Account Info\n5. Back to Main Menu")
+            choice = input("Choose an option: ")
+
+            if choice == '1':
+                amount = float(input("Enter amount to deposit: "))
+                account.deposit(amount)
+            elif choice == '2':
+                amount = float(input("Enter amount to withdraw: "))
+                account.withdraw(amount)
+            elif choice == '3':
+                account.check_balance()
+            elif choice == '4':
+                account.display_info()
+            elif choice == '5':
+                break
+            else:
+                print("❌ Invalid choice. Try again.")
+
+    def run(self):
+        while True:
+            print("\n=== Banking Management System ===")
+            print("1. Create Account\n2. Access Account\n3. Exit")
+            choice = input("Choose an option: ")
+
+            if choice == '1':
+                self.create_account()
+            elif choice == '2':
+                self.access_account()
+            elif choice == '3':
+                print("👋 Thank you for using the Banking System.")
+                break
+            else:
+                print("❌ Invalid input. Try again.")
+
+
+# Running the system
+if __name__ == "__main__":
+    bank_system = BankSystem()
+    bank_system.run()
+class BankAccount:
+    def __init__(self, account_number, account_holder, balance=0.0):
+        self.account_number = account_number
+        self.account_holder = account_holder
+        self.balance = balance
+
+    def deposit(self, amount):
+        if amount <= 0:
+            print("❌ Deposit must be greater than zero.")
+            return
+        self.balance += amount
+        print(f"✅ ${amount:.2f} deposited successfully.")
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("❌ Withdrawal must be greater than zero.")
+            return
+        if amount > self.balance:
+            print("❌ Insufficient balance.")
+            return
+        self.balance -= amount
+        print(f"✅ ${amount:.2f} withdrawn successfully.")
+
+    def check_balance(self):
+        print(f"💰 Current Balance: ${self.balance:.2f}")
+
+    def display_info(self):
+        print("📄 Account Information:")
+        print(f"Account Number: {self.account_number}")
+        print(f"Account Holder: {self.account_holder}")
+        print(f"Balance: ${self.balance:.2f}")
+
+
+# Managing multiple accounts
+class BankSystem:
+    def __init__(self):
+        self.accounts = {}
+
+    def create_account(self):
+        account_number = input("Enter Account Number: ")
+        if account_number in self.accounts:
+            print("⚠️ Account already exists.")
+            return
+
+        name = input("Enter Account Holder Name: ")
+        initial_deposit = float(input("Enter Initial Deposit: "))
+        account = BankAccount(account_number, name, initial_deposit)
+        self.accounts[account_number] = account
+        print("✅ Account created successfully.")
+
+    def access_account(self):
+        account_number = input("Enter Account Number: ")
+        account = self.accounts.get(account_number)
+
+        if not account:
+            print("❌ Account not found.")
+            return
+
+        while True:
+            print("\n1. Deposit\n2. Withdraw\n3. Check Balance\n4. View Account Info\n5. Back to Main Menu")
+            choice = input("Choose an option: ")
+
+            if choice == '1':
+                amount = float(input("Enter amount to deposit: "))
+                account.deposit(amount)
+            elif choice == '2':
+                amount = float(input("Enter amount to withdraw: "))
+                account.withdraw(amount)
+            elif choice == '3':
+                account.check_balance()
+            elif choice == '4':
+                account.display_info()
+            elif choice == '5':
+                break
+            else:
+                print("❌ Invalid choice. Try again.")
+
+    def run(self):
+        while True:
+            print("\n=== Banking Management System ===")
+            print("1. Create Account\n2. Access Account\n3. Exit")
+            choice = input("Choose an option: ")
+
+            if choice == '1':
+                self.create_account()
+            elif choice == '2':
+                self.access_account()
+            elif choice == '3':
+                print("👋 Thank you for using the Banking System.")
+                break
+            else:
+                print("❌ Invalid input. Try again.")
+
+
+# Running the system
+if __name__ == "__main__":
+    bank_system = BankSystem()
+    bank_system.run()
+class BankAccount:
+    def __init__(self, account_number, account_holder, balance=0.0):
+        self.account_number = account_number
+        self.account_holder = account_holder
+        self.balance = balance
+
+    def deposit(self, amount):
+        if amount <= 0:
+            print("❌ Deposit must be greater than zero.")
+            return
+        self.balance += amount
+        print(f"✅ ${amount:.2f} deposited successfully.")
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("❌ Withdrawal must be greater than zero.")
+            return
+        if amount > self.balance:
+            print("❌ Insufficient balance.")
+            return
+        self.balance -= amount
+        print(f"✅ ${amount:.2f} withdrawn successfully.")
+
+    def check_balance(self):
+        print(f"💰 Current Balance: ${self.balance:.2f}")
+
+    def display_info(self):
+        print("📄 Account Information:")
+        print(f"Account Number: {self.account_number}")
+        print(f"Account Holder: {self.account_holder}")
+        print(f"Balance: ${self.balance:.2f}")
+
+
+# Managing multiple accounts
+class BankSystem:
+    def __init__(self):
+        self.accounts = {}
+
+    def create_account(self):
+        account_number = input("Enter Account Number: ")
+        if account_number in self.accounts:
+            print("⚠️ Account already exists.")
+            return
+
+        name = input("Enter Account Holder Name: ")
+        initial_deposit = float(input("Enter Initial Deposit: "))
+        account = BankAccount(account_number, name, initial_deposit)
+        self.accounts[account_number] = account
+        print("✅ Account created successfully.")
+
+    def access_account(self):
+        account_number = input("Enter Account Number: ")
+        account = self.accounts.get(account_number)
+
+        if not account:
+            print("❌ Account not found.")
+            return
+
+        while True:
+            print("\n1. Deposit\n2. Withdraw\n3. Check Balance\n4. View Account Info\n5. Back to Main Menu")
+            choice = input("Choose an option: ")
+
+            if choice == '1':
+                amount = float(input("Enter amount to deposit: "))
+                account.deposit(amount)
+            elif choice == '2':
+                amount = float(input("Enter amount to withdraw: "))
+                account.withdraw(amount)
+            elif choice == '3':
+                account.check_balance()
+            elif choice == '4':
+                account.display_info()
+            elif choice == '5':
+                break
+            else:
+                print("❌ Invalid choice. Try again.")
+
+    def run(self):
+        while True:
+            print("\n=== Banking Management System ===")
+            print("1. Create Account\n2. Access Account\n3. Exit")
+            choice = input("Choose an option: ")
+
+            if choice == '1':
+                self.create_account()
+            elif choice == '2':
+                self.access_account()
+            elif choice == '3':
+                print("👋 Thank you for using the Banking System.")
+                break
+            else:
+                print("❌ Invalid input. Try again.")
+
+
+# Running the system
+if __name__ == "__main__":
+    bank_system = BankSystem()
+    bank_system.run()
